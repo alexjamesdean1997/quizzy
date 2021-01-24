@@ -1,3 +1,5 @@
+/.idea
+/assets/secret.js
 
 ###> symfony/framework-bundle ###
 /.env.local

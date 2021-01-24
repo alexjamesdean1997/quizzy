@@ -11,6 +11,9 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+// apiKey
+import secret from "./secret";
+
 $(document).ready(function(){
     console.log('dom ready');
 });
@@ -18,7 +21,7 @@ $(document).ready(function(){
 function getQuestion() {
 
     $.ajax({
-        url:        'https://www.openquizzdb.org/api.php?key=VE7TCXK3U2',
+        url:        'https://www.openquizzdb.org/api.php?key=' + secret.apiKey,
         type:       'POST',
         dataType:   'json',
         async:      true,
