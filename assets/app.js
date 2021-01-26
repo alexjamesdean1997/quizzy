@@ -16,6 +16,15 @@ import secret from "./secret";
 
 $(document).ready(function(){
     console.log('dom ready');
+
+    if (window.location.href.indexOf("download") > -1) {
+        getQuestion();
+        console.log('get question');
+        var intervalId = window.setInterval(function(){
+            getQuestion();
+            console.log('get question');
+        }, 60100);
+    }
 });
 
 function getQuestion() {
@@ -62,7 +71,15 @@ function saveQuestion(data) {
             $('.questions').append('<div>' + dateTime +'</div>');
             $('.questions').append('<li>' + question.results[0].question +'<div><b>'+ question.results[0].reponse_correcte + '</b></div></li>');
             $('.counter').text(data.count);
+
             console.log(data.message);
+
+            console.log(data.categories);
+
+            $('.categories').empty();
+            for (const [key, value] of Object.entries(data.categories)) {
+                $('.categories').append('<li>' + key + ' : <b>' + value + '</b></li>');
+            }
 
             if(data.duplicate){
                 duplicates = duplicates + 1;
@@ -81,9 +98,3 @@ function saveQuestion(data) {
     });
 
 }
-
-getQuestion();
-var intervalId = window.setInterval(function(){
-    getQuestion();
-    console.log('get question');
-}, 60100);

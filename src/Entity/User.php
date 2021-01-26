@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -48,6 +52,22 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="user")
+     */
+    private $answers;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $avatar;
+
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+        $this->created_at= new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +179,48 @@ class User implements UserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Answer[]
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getUser() === $this) {
+                $answer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?int
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?int $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

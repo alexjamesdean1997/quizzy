@@ -14,12 +14,23 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/download", name="download")
      */
     public function index()
     {
 
         return $this->render('home.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard()
+    {
+
+        return $this->render('dashboard.html.twig', [
 
         ]);
     }
@@ -35,6 +46,14 @@ class HomeController extends AbstractController
         $allQuestions = $questionRepository->findAll();
 
         $questionsCount = count($allQuestions);
+        $categories = [];
+        foreach ($allQuestions as $question){
+            if (!array_key_exists($question->getCategory(), $categories)) {
+                $categories[$question->getCategory()] = 0;
+            }else{
+                $categories[$question->getCategory()] = $categories[$question->getCategory()] + 1;
+            }
+        }
 
         if($data && $data["response_code"] === 0){
 
@@ -47,7 +66,8 @@ class HomeController extends AbstractController
                         "code" => 200,
                         "message" => $message,
                         "duplicate" => true,
-                        "count" => $questionsCount
+                        "count" => $questionsCount,
+                        "categories" => $categories
                     );
                     return new JsonResponse($response);
                 }
@@ -70,7 +90,8 @@ class HomeController extends AbstractController
                 "code" => 200,
                 "message" => $message,
                 "duplicate" => false,
-                "count" => $questionsCount + 1
+                "count" => $questionsCount + 1,
+                "categories" => $categories
             );
             return new JsonResponse($response);
 
