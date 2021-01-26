@@ -2,5 +2,15 @@
 {% block body %}
     <main class="container">
         <h1>Dashboard</h1>
+
+        {% if app.user is defined and app.user is not empty %}
+            <h2>log in as {{ app.user.getFirstName }} {{ app.user.getLastName }}</h2>
+            <div>roles :</div>
+            {% for role in app.user.roles %}
+                <div>{{ role }}</div>
+            {% endfor %}
+        {% else %}
+
+        {% endif %}
     </main>
 {% endblock %}
