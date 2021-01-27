@@ -52,16 +52,7 @@ function saveQuestion(data) {
         async:      true,
 
         success: function(data, status) {
-            let today = new Date();
-            let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            let dateTime = date +' '+ time;
-            $('.questions').append('<div>' + dateTime +'</div>');
-            $('.questions').append('<li>' + question.results[0].question +'<div><b>'+ question.results[0].reponse_correcte + '</b></div></li>');
-            $('.counter').text(data.count);
-
             console.log(data.message);
-
             console.log(data.categories);
 
             $('.categories').empty();
@@ -73,6 +64,14 @@ function saveQuestion(data) {
                 duplicates = duplicates + 1;
             }else{
                 added = added + 1;
+
+                let today = new Date();
+                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                let dateTime = date +' '+ time;
+                $('.questions').append('<div>' + dateTime +'</div>');
+                $('.questions').append('<li>' + question.results[0].question +'<div><b>'+ question.results[0].reponse_correcte + '</b></div></li>');
+                $('.counter').text(data.count);
             }
 
             $('.new').text(added);

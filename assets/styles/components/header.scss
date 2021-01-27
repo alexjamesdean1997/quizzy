@@ -1,0 +1,54 @@
+header{
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  .header-wrapper{
+    padding: 12px;
+    background-color: white;
+    box-shadow: 0 0 42px #00000012;
+    display: flex;
+    border-radius: 10px;
+
+    .logo{
+      height: 30px;
+
+      img{
+        height: 30px;
+        width: auto;
+      }
+    }
+
+    .quizzy{
+      padding-left: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      height: 25px;
+      overflow-y: hidden;
+      color: $blue;
+      padding-top: 5px;
+    }
+  }
+}
+
+nav.mobile-menu{
+  padding: 5px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  .mobile-menu-wrapper{
+    padding: 12px;
+    background-color: white;
+    box-shadow: 0 0 42px #00000012;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-around;
+  }
+}

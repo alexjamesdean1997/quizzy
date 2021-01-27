@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main class="container">
+        <h1 class="title">Quiz</h1>
+        <h2 class="subtitle">Choose a category</h2>
+
+        <section>
+            {% for category in categories %}
+                <div class="category">
+                    {{ category }}
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}

@@ -1,5 +1,5 @@
 /.idea
-/assets/secret.js
+/assets/js/secret.js
 
 ###> symfony/framework-bundle ###
 /.env.local

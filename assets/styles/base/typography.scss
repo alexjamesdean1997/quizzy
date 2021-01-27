@@ -27,178 +27,26 @@ body{
   font-family: 'Grold', sans-serif;
 }
 
-a, button{
-  text-decoration: none;
-  color: white;
-  font-weight: 100;
-}
-
 .title{
   font-family: 'Grold', sans-serif;
-  font-weight: bold;
-  font-size: 3rem;
-  line-height: 140%;
+  font-weight: 600;
+  font-size: 28px;
+  padding: 12px 0;
   margin: 0;
+  color: $blue;
+}
 
-  @media screen and (max-width: 768px) {
-    font-size: 2.4rem;
-  }
-
-  @media screen and (max-width: 568px) {
-    font-size: 1.8rem;
-  }
-
-  @include modifier('huge'){
-    line-height: 100%;
-    font-size: 25vw;
-    letter-spacing: 1rem;
-  }
-
-  @include modifier('big'){
-    font-size: 5rem;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 4rem;
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 3rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      font-size: 2.5rem;
-    }
-
-    @media screen and (max-width: 568px) {
-      font-size: 2rem;
-    }
-  }
-
-  @include modifier('number'){
-    font-size: 5rem;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 4rem;
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 3rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      font-size: 3rem;
-    }
-
-    @media screen and (max-width: 568px) {
-      font-size: 3rem;
-    }
-  }
-
-  @include modifier('step'){
-    font-size: 5rem;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 5rem;
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 4rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      font-size: 4rem;
-    }
-
-    @media screen and (max-width: 568px) {
-      font-size: 3rem;
-    }
-  }
-
-  @include modifier('medium'){
-    font-size: 2.6rem;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 2.4rem;
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 2.2rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      font-size: 2rem;
-    }
-
-    @media screen and (max-width: 568px) {
-      font-size: 1.6rem;
-    }
-  }
-
-  @include modifier('small'){
-    font-size: 1.8rem;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 1.7rem;
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 1.6rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      font-size: 1.5rem;
-    }
-
-    @media screen and (max-width: 568px) {
-      font-size: 1.4rem;
-    }
-  }
+.subtitle{
+  font-family: 'Grold', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px 0;
+  margin: 0;
+  color: $dark;
 }
 
 .text{
   font-family: 'Grold', sans-serif;
-  font-weight: 100;
   font-size: 1rem;
-  line-height: 1.7rem;
-  letter-spacing: -0.4px;
-  margin-bottom: 30px;
-
-  @media screen and (max-width: 992px) {
-    font-size: 0.9rem;
-    line-height: 1.5rem;
-  }
-
-  .show-gif{
-    font-weight: bold;
-    position: relative;
-    padding: 5px 0;
-    border-bottom: 1px solid white;
-
-    @media screen and (max-width: 992px) {
-      border-bottom: 0;
-      padding: 0;
-    }
-  }
-
-  @include modifier('big'){
-    font-size: 1.18rem;
-    line-height: 2rem;
-
-    .show-gif{
-      padding: 7px 0;
-
-      @media screen and (max-width: 768px) {
-        padding: 4px 0;
-      }
-    }
-
-    @media screen and (max-width: 992px) {
-      font-size: 1rem;
-      line-height: 1.7rem;
-    }
-  }
-
-  @include modifier('center'){
-    text-align: center;
-  }
+  color: $dark;
 }

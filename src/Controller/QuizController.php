@@ -16,11 +16,18 @@ class QuizController extends AbstractController
     /**
      * @Route("/quiz", name="quiz")
      */
-    public function quiz()
+    public function quiz(QuestionRepository $questionRepository)
     {
+        $allQuestions = $questionRepository->findAll();
+        $categories = [];
+        foreach ($allQuestions as $question){
+            if (!in_array($question->getCategory(), $categories)) {
+                $categories[] = $question->getCategory();
+            }
+        }
 
         return $this->render('quiz.html.twig', [
-
+            "categories" => $categories
         ]);
     }
 }
