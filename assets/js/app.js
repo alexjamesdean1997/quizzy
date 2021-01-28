@@ -19,6 +19,7 @@ $(document).ready(function(){
     if($('.quiz-game').length){
         $('.question-wrapper').hide();
         $('.question-wrapper[data-question="1"]').show();
+        $('.summary').hide();
     }
 
     $('.quiz-choice').click(function() {
@@ -33,7 +34,13 @@ $(document).ready(function(){
             $(this).removeClass('next-question').text('Valider').prop("disabled", true);
             $('.question-wrapper[data-question="' + currentQuestion + '"]').remove();
             currentQuestion = currentQuestion + 1;
-            $('.question-wrapper[data-question="' + currentQuestion + '"]').show();
+            if(currentQuestion <= 10){
+                $('.question-wrapper[data-question="' + currentQuestion + '"]').show();
+            }else {
+                $('#submitQuiz').hide();
+                $('.summary').show();
+            }
+
         }else{
             console.log('submit');
             let questionId = $('.question-wrapper[data-question="' + currentQuestion + '"]').data('qid');
@@ -146,6 +153,7 @@ function manageResult(correctAnswer){
         console.log('correct');
         $('.quiz-choice.selected').addClass('correct');
         correctAnswers = correctAnswers + 1;
+        $('.summary .score .result').text(correctAnswers);
     }else{
         console.log('wrong');
         $('.quiz-choice.selected').addClass('wrong');
