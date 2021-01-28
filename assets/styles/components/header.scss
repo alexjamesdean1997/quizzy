@@ -1,5 +1,6 @@
 header{
-  padding: 5px;
+  background-color: $light;
+  padding: 5px 5px 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -35,7 +36,8 @@ header{
 }
 
 nav.mobile-menu{
-  padding: 5px;
+  background-color: $light;
+  padding: 0 5px 5px;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -43,12 +45,25 @@ nav.mobile-menu{
   z-index: 10;
 
   .mobile-menu-wrapper{
-    padding: 12px;
+    padding: 0 12px;
     background-color: white;
     box-shadow: 0 0 42px #00000012;
     display: flex;
     border-radius: 10px;
     align-items: center;
     justify-content: space-around;
+    margin: 0;
+
+    li{
+      list-style: none;
+
+      a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        padding: 12px 0;
+      }
+    }
   }
 }

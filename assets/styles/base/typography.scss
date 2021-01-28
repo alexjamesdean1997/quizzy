@@ -2,6 +2,7 @@
 @font-face {
   font-family: "Grold";
   src: url("./../../fonts/Grold-Regular.otf");
+  font-weight: normal;
   font-display: swap;
 }
 @font-face {
@@ -30,7 +31,7 @@ body{
 .title{
   font-family: 'Grold', sans-serif;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 32px;
   padding: 12px 0;
   margin: 0;
   color: $blue;
@@ -39,10 +40,19 @@ body{
 .subtitle{
   font-family: 'Grold', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
   padding: 12px 0;
   margin: 0;
   color: $dark;
+
+  &:first-letter {
+    text-transform: capitalize
+  }
+
+  &--small{
+    font-weight: 100;
+    font-size: 20px;
+  }
 }
 
 .text{

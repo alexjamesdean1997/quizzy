@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main class="container quiz-game">
+        <h1 class="title">Quiz</h1>
+        <h2 class="subtitle">{{ category }}</h2>
+        <div class="subtitle subtitle--small">{{ difficulty }}</div>
+
+        <div class="questions">
+            {% for question in questions %}
+                <div class="question-wrapper" data-qid="{{ question.id }}" data-question="{{ loop.index }}">
+                    <div class="steps"><span class="step">{{ loop.index }}</span> of 10</div>
+                    <div class="question">{{ question.question }}</div>
+                    <ul class="choices">
+                        {% for choice in question.choices %}
+                            <li class="choice">
+                                <button class="quiz-choice" data-value="{{ choice }}">
+                                    {% if loop.index == 1 %}
+                                        A.
+                                    {% elseif loop.index == 2 %}
+                                        B.
+                                    {% elseif loop.index == 3 %}
+                                        C.
+                                    {% elseif loop.index == 4 %}
+                                        D.
+                                    {% endif %}
+                                    <span>{{ choice }}</span>
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+            <button id="submitQuiz" class="btn btn--fw" disabled>Valider</button>
+        </div>
+        <div class="summary">
+
+        </div>
+    </main>
+{% endblock %}

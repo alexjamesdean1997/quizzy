@@ -2,8 +2,10 @@ import '../styles/style.scss';
 // apiKey
 import secret from "./secret";
 
+let currentQuestion = 1;
+let correctAnswers = 0;
+
 $(document).ready(function(){
-    console.log('dom ready');
 
     if (window.location.href.indexOf("download") > -1) {
         getQuestion();
@@ -11,8 +13,34 @@ $(document).ready(function(){
         var intervalId = window.setInterval(function(){
             getQuestion();
             console.log('get question');
-        }, 60300);
+        }, 61100);
     }
+
+    if($('.quiz-game').length){
+        $('.question-wrapper').hide();
+        $('.question-wrapper[data-question="1"]').show();
+    }
+
+    $('.quiz-choice').click(function() {
+        $('.quiz-choice').removeClass('selected');
+        $(this).addClass('selected');
+        $('#submitQuiz').prop("disabled", false);
+    });
+
+    $('#submitQuiz').click(function() {
+        if($(this).hasClass('next-question')){
+            console.log('next');
+            $(this).removeClass('next-question').text('Valider').prop("disabled", true);
+            $('.question-wrapper[data-question="' + currentQuestion + '"]').remove();
+            currentQuestion = currentQuestion + 1;
+            $('.question-wrapper[data-question="' + currentQuestion + '"]').show();
+        }else{
+            console.log('submit');
+            let questionId = $('.question-wrapper[data-question="' + currentQuestion + '"]').data('qid');
+            console.log(questionId);
+            getAnswer(questionId);
+        }
+    });
 });
 
 function getQuestion() {
@@ -29,6 +57,8 @@ function getQuestion() {
                 saveQuestion(data);
             }else {
                 console.log('to many requests');
+                blocked = blocked + 1;
+                $('.blocked').text(blocked);
             }
         },
         error : function(xhr, textStatus, errorThrown) {
@@ -40,6 +70,7 @@ function getQuestion() {
 
 let duplicates = 0;
 let added = 0;
+let blocked = 0;
 
 function saveQuestion(data) {
 
@@ -84,4 +115,42 @@ function saveQuestion(data) {
         }
     });
 
+}
+
+function getAnswer(questionId) {
+
+    $.ajax({
+        url:        '/getcorrectanswers/ajax?data=' + JSON.stringify(questionId),
+        type:       'POST',
+        dataType:   'json',
+        async:      true,
+
+        success: function(data, status) {
+            let correctAnswer = data.answer;
+            manageResult(correctAnswer);
+        },
+        error : function(xhr, textStatus, errorThrown) {
+            console.log('failed to get question correct answer');
+        }
+    });
+
+}
+
+function manageResult(correctAnswer){
+    console.log('MANAGER');
+    let selectedChoiceValue = $('.quiz-choice.selected').data('value');
+    console.log({correctAnswer});
+    console.log({selectedChoiceValue});
+
+    if(selectedChoiceValue.toString() === correctAnswer.toString()){
+        console.log('correct');
+        $('.quiz-choice.selected').addClass('correct');
+        correctAnswers = correctAnswers + 1;
+    }else{
+        console.log('wrong');
+        $('.quiz-choice.selected').addClass('wrong');
+        $('.quiz-choice[data-value="' + correctAnswer + '"]').addClass('correct');
+    }
+
+    $('#submitQuiz').addClass('next-question').text('Continuer');
 }
