@@ -1,16 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <main class="container">
-        <h1>Dashboard</h1>
+        <h1 class="title">Dashboard</h1>
 
         {% if app.user is defined and app.user is not empty %}
-            <h2>log in as {{ app.user.getFirstName }} {{ app.user.getLastName }}</h2>
-            <div>roles :</div>
-            {% for role in app.user.roles %}
-                <div>{{ role }}</div>
-            {% endfor %}
-        {% else %}
-
+            <div class="user-card">
+                <div class="user-avatar"></div>
+                <div class="user-name">
+                    <div class="first-name">{{ app.user.getFirstName }}</div>
+                    <div class="last-name">{{ app.user.getLastName }}</div>
+                </div>
+                <div class="user-edit"></div>
+            </div>
         {% endif %}
+
+        <h2 class="subtitle">Vos stats</h2>
+
+        <div class="user-stats">
+            <div class="stat">
+                <div class="label">Classement général</div>
+                <div class="number"><span>#</span>{{ stats['rank'] }}</div>
+            </div>
+            <div class="stat">
+                <div class="label">Taux de réussite</div>
+                <div class="number">{{ stats['success-rate'] }}<span>%</span></div>
+            </div>
+            <div class="stat">
+                <div class="label">Nombre de points</div>
+                <div class="number">{{ stats['score'] }}</div>
+            </div>
+        </div>
     </main>
 {% endblock %}

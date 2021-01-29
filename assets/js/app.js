@@ -181,7 +181,8 @@ function manageResult(correctAnswer){
     }else{
         console.log('wrong');
         $('.quiz-choice.selected').addClass('wrong');
-        $('.quiz-choice[data-value="' + correctAnswer + '"]').addClass('correct');
+        // @TODO must be correct answer of current question
+        $('.question-wrapper[data-question="' + currentQuestion + '"] .quiz-choice[data-value="' + correctAnswer + '"]').addClass('correct');
     }
 
     $('#submitQuiz').addClass('next-question').text('Continuer');

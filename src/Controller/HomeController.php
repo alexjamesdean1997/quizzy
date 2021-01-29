@@ -25,17 +25,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboard()
-    {
-
-        return $this->render('dashboard.html.twig', [
-
-        ]);
-    }
-
-    /**
      * @Route("/savequestion/ajax", name="save_question")
      */
     public function saveQuestion(Request $request, QuestionRepository $questionRepository)
