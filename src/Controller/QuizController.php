@@ -2,16 +2,29 @@
 // src/Controller/HomeController.php
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Question;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Security;
 
 class QuizController extends AbstractController
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     /**
      * @Route("/quiz", name="quiz")
@@ -130,6 +143,45 @@ class QuizController extends AbstractController
         $response = array(
             "code" => 200,
             "answer" => $answer
+        );
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/saveanswer/ajax", name="save_answer")
+     */
+    public function saveAnswer(Request $request, QuestionRepository $questionRepository)
+    {
+        $data = json_decode($request->query->get('data'), true);
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->security->getUser();
+        $question = $questionRepository->find($data['questionId']);
+        $correct_answer = $question->getCorrectAnswer();
+        $success = null;
+
+        $newAnswer = new Answer();
+
+        $newAnswer->setUser($user);
+        $newAnswer->setQuestion($question);
+        $newAnswer->setCreatedAt(new \DateTime());
+
+        if(strval($data['answer']) === strval($correct_answer)){
+            $success = true;
+        }else{
+            $success = false;
+        }
+
+        $newAnswer->setSuccess($success);
+
+        $em->persist($newAnswer);
+        $em->flush();
+
+        $message = 'saved answer';
+
+        $response = array(
+            "code" => 200,
+            "message" => $message
         );
         return new JsonResponse($response);
     }

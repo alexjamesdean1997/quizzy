@@ -30,22 +30,25 @@ $(document).ready(function(){
 
     $('#submitQuiz').click(function() {
         if($(this).hasClass('next-question')){
-            console.log('next');
+
             $(this).removeClass('next-question').text('Valider').prop("disabled", true);
             $('.question-wrapper[data-question="' + currentQuestion + '"]').remove();
             currentQuestion = currentQuestion + 1;
+
             if(currentQuestion <= 10){
+
                 $('.question-wrapper[data-question="' + currentQuestion + '"]').show();
             }else {
+
                 $('#submitQuiz').hide();
                 $('.summary').show();
             }
-
         }else{
-            console.log('submit');
+
             let questionId = $('.question-wrapper[data-question="' + currentQuestion + '"]').data('qid');
-            console.log(questionId);
-            getAnswer(questionId);
+            let answer = $('.quiz-choice.selected').data('value');
+            saveAnswer(questionId, answer);
+            getCorrectAnswer(questionId);
         }
     });
 });
@@ -124,7 +127,7 @@ function saveQuestion(data) {
 
 }
 
-function getAnswer(questionId) {
+function getCorrectAnswer(questionId) {
 
     $.ajax({
         url:        '/getcorrectanswers/ajax?data=' + JSON.stringify(questionId),
@@ -140,7 +143,28 @@ function getAnswer(questionId) {
             console.log('failed to get question correct answer');
         }
     });
+}
 
+function saveAnswer(questionId, answer) {
+
+    let data = {
+        questionId : questionId,
+        answer : answer
+    };
+
+    $.ajax({
+        url:        '/saveanswer/ajax?data=' + JSON.stringify(data),
+        type:       'POST',
+        dataType:   'json',
+        async:      true,
+
+        success: function(data, status) {
+            console.log(data);
+        },
+        error : function(xhr, textStatus, errorThrown) {
+            console.log('failed to get question correct answer');
+        }
+    });
 }
 
 function manageResult(correctAnswer){

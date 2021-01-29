@@ -63,4 +63,8 @@ body{
   font-family: 'Grold', sans-serif;
   font-size: 1rem;
   color: $dark;
+
+  &--bold{
+    font-weight: 600;
+  }
 }

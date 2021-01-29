@@ -34,6 +34,11 @@ class Answer
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $success;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Answer
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getSuccess(): ?bool
+    {
+        return $this->success;
+    }
+
+    public function setSuccess(bool $success): self
+    {
+        $this->success = $success;
 
         return $this;
     }
