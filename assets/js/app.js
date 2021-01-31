@@ -96,9 +96,9 @@ function saveQuestion(data) {
             console.log(data.message);
             console.log(data.categories);
 
-            $('.categories').empty();
+            $('.categories-list').empty();
             for (const [key, value] of Object.entries(data.categories)) {
-                $('.categories').append('<li>' + key + ' : <b>' + value + '</b></li>');
+                $('.categories-list').append('<li>' + key + ' : <b>' + value + '</b></li>');
             }
 
             if(data.duplicate){
@@ -117,7 +117,7 @@ function saveQuestion(data) {
 
             $('.new').text(added);
             $('.duplicate').text(duplicates);
-            $('.success').text(((added / (added + duplicates)) * 100) + '%');
+            $('.success').text(((added / (added + duplicates)) * 100).toFixed(2) + '%');
 
         },
         error : function(xhr, textStatus, errorThrown) {
